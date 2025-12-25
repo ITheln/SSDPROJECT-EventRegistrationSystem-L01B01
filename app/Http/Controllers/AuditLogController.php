@@ -12,7 +12,7 @@ class AuditLogController extends Controller
             abort(403);
         }
 
-        $logs = AuditLog::with('user')->latest()->paginate(15);
+        $logs = AuditLog::with('user')->latest()->get();
         return view('admin.audit_logs', compact('logs'));
     }
 }

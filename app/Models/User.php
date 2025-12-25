@@ -41,4 +41,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+/**
+ * Relationship: A user can create many events.
+ * This is used for secure data fetching to prevent IDOR.
+ */
+public function events()
+{
+    return $this->hasMany(Event::class);
+}
+
+
+
 }

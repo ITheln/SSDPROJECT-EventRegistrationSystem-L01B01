@@ -18,6 +18,7 @@ class CreateEventsTable extends Migration
         $table->string('title'); // Will be escaped in UI to prevent XSS
         $table->text('description');
         $table->integer('max_capacity');
+        $table->dateTime('event_date'); // Add this to fix the "Unknown column" error
         $table->timestamps();
     });
 }

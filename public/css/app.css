@@ -782,14 +782,14 @@ input:where([type='file']):focus {
 .inline-flex {
   display: inline-flex;
 }
+.table {
+  display: table;
+}
 .grid {
   display: grid;
 }
 .hidden {
   display: none;
-}
-.h-10 {
-  height: 2.5rem;
 }
 .h-16 {
   height: 4rem;
@@ -836,6 +836,9 @@ input:where([type='file']):focus {
 .w-full {
   width: 100%;
 }
+.min-w-full {
+  min-width: 100%;
+}
 .max-w-6xl {
   max-width: 72rem;
 }
@@ -847,9 +850,6 @@ input:where([type='file']):focus {
 }
 .flex-1 {
   flex: 1 1 0%;
-}
-.shrink-0 {
-  flex-shrink: 0;
 }
 .origin-top {
   transform-origin: top;
@@ -910,8 +910,20 @@ input:where([type='file']):focus {
   margin-top: calc(0.25rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.25rem * var(--tw-space-y-reverse));
 }
+.divide-y > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-y-reverse: 0;
+  border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+  border-bottom-width: calc(1px * var(--tw-divide-y-reverse));
+}
+.divide-gray-200 > :not([hidden]) ~ :not([hidden]) {
+  --tw-divide-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-divide-opacity, 1));
+}
 .overflow-hidden {
   overflow: hidden;
+}
+.whitespace-nowrap {
+  white-space: nowrap;
 }
 .rounded {
   border-radius: 0.25rem;
@@ -975,6 +987,10 @@ input:where([type='file']):focus {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
 }
+.bg-gray-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
 .bg-gray-800 {
   --tw-bg-opacity: 1;
   background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
@@ -1031,6 +1047,10 @@ input:where([type='file']):focus {
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+.py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -1066,6 +1086,9 @@ input:where([type='file']):focus {
 .pt-8 {
   padding-top: 2rem;
 }
+.text-left {
+  text-align: left;
+}
 .text-center {
   text-align: center;
 }
@@ -1091,6 +1114,9 @@ input:where([type='file']):focus {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+.font-bold {
+  font-weight: 700;
 }
 .font-medium {
   font-weight: 500;
@@ -1279,6 +1305,10 @@ input:where([type='file']):focus {
 .hover\:text-gray-900:hover {
   --tw-text-opacity: 1;
   color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+.hover\:text-red-900:hover {
+  --tw-text-opacity: 1;
+  color: rgb(127 29 29 / var(--tw-text-opacity, 1));
 }
 .focus\:z-10:focus {
   z-index: 10;
