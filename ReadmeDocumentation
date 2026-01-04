@@ -88,6 +88,6 @@ This application implements strict security controls compliant with OWASP standa
 
 ## 6. Screenshots
 ### Dashboard View
-![Dashboard View](AdminDashboard.png)
+![image alt](https://github.com/ITheln/SSDPROJECT-EventRegistrationSystem-L01B01/blob/main/AdminDashboard.png?raw=true)
 ### Admin Audit Logs
 ![image alt](https://github.com/ITheln/SSDPROJECT-EventRegistrationSystem-L01B01/blob/main/Auditlogs.png?raw=true)
