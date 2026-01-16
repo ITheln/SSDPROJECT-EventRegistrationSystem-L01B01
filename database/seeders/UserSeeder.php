@@ -8,17 +8,25 @@ use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
 {
-    public function run()
+   public function run()
     {
-        // 1. Create Admin User
+        // 1. SYSTEM ADMIN (Handles Logs)
         User::create([
             'name' => 'System Admin',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('Admin@12345'), // Securely hashed
-            'role' => 'admin',
+            'email' => 'system@example.com',
+            'password' => Hash::make('System@12345'),
+            'role' => 'system_admin', // <--- NEW ROLE
         ]);
 
-        // 2. Create Normal User
+        // 2. EVENT ADMIN (Handles Events)
+        User::create([
+            'name' => 'Event Admin',
+            'email' => 'event@example.com',
+            'password' => Hash::make('Event@12345'),
+            'role' => 'event_admin',  // <--- NEW ROLE
+        ]);
+
+        // 3. REGULAR USER
         User::create([
             'name' => 'Regular User',
             'email' => 'user@example.com',

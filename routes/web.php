@@ -26,42 +26,44 @@ Route::middleware(['auth'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    // ==========================================
-    // ADMIN ONLY ROUTES
+// ==========================================
+    // SYSTEM ADMIN (Logs Only)
     // ==========================================
     
     // 1. Show Audit Logs
     Route::get('/admin/audit-logs', function () {
-        if (auth()->user()->email !== 'admin@example.com') { 
-             abort(403, 'Unauthorized action.');
-        }
+        // Only System Admin can enter
+        if (auth()->user()->role !== 'system_admin') { abort(403, 'Unauthorized.'); }
+        
         $logs = App\Models\AuditLog::latest()->get();
         return view('admin.audit_logs', compact('logs'));
     })->name('audit.logs');
 
-    // 2. Show Create Event Form (Fixed: No middleware error)
+    // 4. Delete Audit Log Route
+    Route::delete('/admin/audit-logs/{id}', function ($id) {
+        // Only System Admin can delete
+        if (auth()->user()->role !== 'system_admin') { abort(403, 'Unauthorized.'); }
+        return app(EventController::class)->adminDeleteLog($id);
+    })->name('admin.logs.delete');
+
+
+    // ==========================================
+    // EVENT ADMIN (Create Events Only)
+    // ==========================================
+    
+    // 2. Show Create Event Form
     Route::get('/admin/events/create', function () {
-        // Security Check
-        if (auth()->user()->email !== 'admin@example.com') { abort(403, 'Unauthorized action.'); }
-        // Call the controller manually
+        // Only Event Admin can enter
+        if (auth()->user()->role !== 'event_admin') { abort(403, 'Unauthorized.'); }
         return app(EventController::class)->adminCreate();
     })->name('admin.events.create');
 
-    // 3. Process Create Event (Fixed: No middleware error)
+    // 3. Process Create Event
     Route::post('/admin/events/store', function (Illuminate\Http\Request $request) {
-        // Security Check
-        if (auth()->user()->email !== 'admin@example.com') { abort(403, 'Unauthorized action.'); }
-        // Call the controller manually
+        // Only Event Admin can store
+        if (auth()->user()->role !== 'event_admin') { abort(403, 'Unauthorized.'); }
         return app(EventController::class)->adminStore($request);
     })->name('admin.events.store');
-
-    // 4. Delete Audit Log Route (Admin Only)
-    Route::delete('/admin/audit-logs/{id}', function ($id) {
-        // Security Check
-        if (auth()->user()->email !== 'admin@example.com') { abort(403, 'Unauthorized action.'); }
-        // Call the controller manually
-        return app(EventController::class)->adminDeleteLog($id);
-    })->name('admin.logs.delete');
 
     // ==========================================
     // REGULAR USER ROUTES

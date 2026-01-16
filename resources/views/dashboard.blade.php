@@ -9,14 +9,21 @@
                     {{ __('My Profile') }}
                 </h2>
 
-                {{-- CONDITIONAL LOGIC --}}
-                @if(Auth::user()->email == 'admin@example.com')
-                    <a href="{{ route('audit.logs') }}" class="bg-gray-800 text-white text-sm font-bold py-2 px-4 rounded-lg shadow hover:bg-gray-900 transition">
-                        View Audit Logs
+                {{-- CONDITIONAL LOGIC: ROLE BASED --}}
+                
+                {{-- 1. SYSTEM ADMIN: Sees Audit Logs --}}
+                @if(Auth::user()->role === 'system_admin')
+                    <a href="{{ route('audit.logs') }}" class="bg-red-700 text-white text-sm font-bold py-2 px-4 rounded-lg shadow hover:bg-red-800 transition">
+                        View System Logs
                     </a>
+
+                {{-- 2. EVENT ADMIN: Sees Create Event --}}
+                @elseif(Auth::user()->role === 'event_admin')
                     <a href="{{ route('admin.events.create') }}" class="bg-green-600 text-white text-sm font-bold py-2 px-4 rounded-lg shadow hover:bg-green-700 transition">
-                        Create Event
+                        Create New Event
                     </a>
+
+                {{-- 3. REGULAR USER: Sees Register Event --}}
                 @else
                     <a href="{{ route('events.available') }}" class="bg-indigo-600 text-white text-sm font-bold py-2 px-4 rounded-lg shadow hover:bg-indigo-700 transition">
                         Register Event
