@@ -1,0 +1,93 @@
+# Secure Event Registration System
+
+## 1. Project Description
+This is a secure web application built with the **Laravel PHP Framework**. The system allows Administrators to create and manage events while auditing all system activities. Regular Users can securely register for events. The primary focus of this project is to mitigate **OWASP Top 10** vulnerabilities such as SQL Injection, XSS, and Broken Access Control.
+
+**Key Roles:**
+* **Admin:** Manage events, view audit logs, delete users.
+* **User:** View available events, register for events, manage profile.
+
+---
+
+## 2. Installation Steps
+Follow these steps to set up the project locally:
+
+1.  **Clone the Repository**
+    ```bash
+    git clone [https://github.com/ITheln/SSDPROJECT-EventRegistrationSystem-L01B01.git)
+    cd SSDPROJECT-EventRegistrationSystem-L01B01
+    ```
+
+2.  **Install PHP Dependencies**
+    ```bash
+    composer install
+    ```
+
+3.  **Setup Environment Variables**
+    ```bash
+    cp .env.example .env
+    ```
+    * Open `.env` and configure your database settings (`DB_DATABASE`, `DB_USERNAME`).
+
+4.  **Generate Application Key**
+    ```bash
+    php artisan key:generate
+    ```
+
+5.  **Run Database Migrations**
+    ```bash
+    php artisan migrate
+    ```
+
+6.  **Create Admin User (via Tinker)**
+    ```bash
+    php artisan tinker
+    ```
+    ```php
+    \App\Models\User::create([
+        'name' => 'System Admin',
+        'email' => 'admin@example.com',
+        'password' => bcrypt('password'),
+        'email_verified_at' => now(),
+    ]);
+    exit
+    ```
+
+---
+
+## 3. Security Features Summary
+This application implements strict security controls compliant with OWASP standards:
+
+* **Role-Based Access Control (RBAC):** Middleware checks ensure only Admins can access `/admin` routes.
+* **SQL Injection Prevention:** Uses Eloquent ORM and Parameter Binding for all database queries.
+* **XSS Protection:** Automatic output encoding via Blade Templating Engine (`{{ }}`).
+* **CSRF Protection:** Anti-CSRF tokens enabled on all forms (`@csrf`).
+* **Audit Logging:** Tracks critical actions (Login, Event Creation, Registration) for non-repudiation.
+* **Input Validation:** Strict server-side validation using Laravel's `$request->validate()`.
+* **Session Security:** Sessions are regenerated upon login to prevent Session Fixation.
+
+---
+
+## 4. How to Run the App
+1.  Start the local development server:
+    ```bash
+    php artisan serve
+    ```
+2.  Open your browser and navigate to:
+    `http://127.0.0.1:8000`
+
+---
+
+## 5. Dependencies
+* **PHP:** ^8.1
+* **Laravel Framework:** ^10.0
+* **Database:** MySQL
+* **Composer:** Dependency Manager
+
+---
+
+## 6. Screenshots
+### Dashboard View
+![image alt](https://github.com/ITheln/SSDPROJECT-EventRegistrationSystem-L01B01/blob/main/AdminDashboard.png?raw=true)
+### Admin Audit Logs
+![image alt](https://github.com/ITheln/SSDPROJECT-EventRegistrationSystem-L01B01/blob/main/Auditlogs.png?raw=true)
